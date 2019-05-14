@@ -1,0 +1,232 @@
+<html>
+
+<head><title> 4Fun </title></head>
+
+
+
+
+<body>
+	<div id='idiv' style='position: absolute;left: 1vw;	background-color: rgb(0,0,0);	height: 10%; width: 10%; pageY: 200px;'></div>
+	<div style='width: 100%; height: 100%;display: flex; align-items: center; justify-content: center;'>
+	
+	<div style='width: 20%; height: 50%;border: 1px black solid;'>
+	<input type='button' value='CORRA!' id='btnRun' onclick='setRunning();run()'/>
+	
+	<output>Velocidade:</output>
+	<input type='number' onchange='setVel(this.value)' value='5' style='min-width: 45px;width: 10%;'/>
+	</div>
+
+	<div style='width: 40%; height: 50%;border: 1px black solid;'>
+	<div id='r' style='width: 33.3%;height: 45%;background: red; float: left;'></div>
+	<div id='g' style='width: 33.3%;height: 45%;background: green; float: left;'></div>
+	<div id='b' style='width: 33.3%;height: 45%;background: blue; float: left;'></div>
+
+	<div id='rm' style='width: 33.3%;height: 45%;background: pink; float: left;'></div>
+	<div id='gm' style='width: 33.3%;height: 45%;background: lightgreen; float: left;'></div>
+	<div id='bm' style='width: 33.3%;height: 45%;background: lightblue; float: left;'></div>
+
+	<div id='colorControl' style='display: flex;justify-content: center;align-items: center; width: 100%; height: 10%;'> 
+
+	<output>Potencia: </output>
+	<input type='number' onchange='setColorPotency(this.value)' value='5' style='min-width: 45px;width: 10%;'/>
+
+	</div>
+
+	</div>
+
+	</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+</html>
+
+<script type='text/javascript'>
+
+var running = false;
+var velocity = 1;
+
+function setRunning()
+{
+	if(running) 
+	{
+		running = false;
+		document.getElementById('btnRun').value = 'CORRA!';
+	}
+	else
+	{
+		running = true;
+		document.getElementById('btnRun').value = 'PARE!';
+	}
+}
+
+function run()
+{
+	if(running)
+	{
+		var position = parseFloat(document.getElementById('idiv').style.left.substring(0, parseInt(document.getElementById('idiv').style.left.length) - 2));
+		
+		if(position > 110)
+		{
+		    document.getElementById('idiv').style.left = '-10vw';
+		}
+		else
+		{
+		    document.getElementById('idiv').style.left = (position + velocity) + 'vw';
+		}
+		
+		
+
+		setTimeout(() => {run()}, 10);
+	}	
+	else
+	{
+	
+	}
+
+}
+
+
+
+var colorPotency = 5;
+
+function setColorPotency(num)
+{
+	colorPotency = parseInt(num);
+}
+
+document.getElementById('r').onmousemove = (e) => {
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var r = parseInt(ryb[0]) + colorPotency;
+
+if(r > 255) 
+{
+	r = 255;
+}
+
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ r +','+ ryb[1] +',' + ryb[2] + ')';
+
+}
+
+document.getElementById('g').onmousemove = (e) => {
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var g = parseInt(ryb[1]) + colorPotency;
+
+if(g > 255) 
+{
+	g = 255;
+}
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ ryb[0] +','+ g +',' + ryb[2] + ')';
+
+
+}
+
+document.getElementById('b').onmousemove = (e) => {
+
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var b = parseInt(ryb[2]) + colorPotency;
+
+if(b > 255) 
+{
+	b = 255;
+}
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ ryb[0] +','+ ryb[1] +',' + b + ')';
+
+}
+
+
+
+
+
+document.getElementById('rm').onmousemove = (e) => {
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var r = parseInt(ryb[0]) - colorPotency;
+
+if(r < 0) 
+{
+	r = 0;
+}
+
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ r +','+ ryb[1] +',' + ryb[2] + ')';
+
+}
+
+document.getElementById('gm').onmousemove = (e) => {
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var g = parseInt(ryb[1]) - colorPotency;
+
+if(g < 0) 
+{
+	g = 0;
+}
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ ryb[0] +','+ g +',' + ryb[2] + ')';
+
+
+}
+
+document.getElementById('bm').onmousemove = (e) => {
+
+
+var ryb = document.getElementById('idiv').style.backgroundColor.split('(')[1];
+var ryb = ryb.split(')')[0];
+var ryb = ryb.split(',');
+
+var b = parseInt(ryb[2]) - colorPotency;
+
+if(b < 0) 
+{
+	b = 0;
+}
+
+document.getElementById('idiv').style.backgroundColor = 'rgb('+ ryb[0] +','+ ryb[1] +',' + b + ')';
+
+}
+
+
+</script>
+
+<style type='text/css'>
+*
+{
+	margin: 0;
+	padding: 0;
+}
+html, body
+{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+</style>
